@@ -1,0 +1,4 @@
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+/images/profil-bus-jour.mov filter=lfs diff=lfs merge=lfs -text
+/profil-bus-jour.mov.zip filter=lfs diff=lfs merge=lfs -text

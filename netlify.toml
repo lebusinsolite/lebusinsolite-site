@@ -1,0 +1,22 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://lebusinsolite.fr"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
+
+[[headers]]
+  for = "/netlify/functions/calendar.ics"
+  [headers.values]
+    Content-Type = "text/calendar; charset=utf-8"
+
+[dev]
+  functions = "netlify/functions"
+  targetPort = 8080

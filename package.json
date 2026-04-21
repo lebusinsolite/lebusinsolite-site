@@ -1,0 +1,17 @@
+{
+  "name": "lebusinsolite-site",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^3.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.4",
+    "node-ical": "^0.20.1",
+    "resend": "^4.5.1",
+    "stripe": "^17.7.0"
+  }
+}

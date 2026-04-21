@@ -1,0 +1,51 @@
+# macOS
+.DS_Store
+.AppleDouble
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+
+# Claude Code
+.claude/
+
+# Fichiers temporaires
+*.log
+*.tmp
+
+# Environnement local (secrets)
+.env.local
+.env
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Netlify
+.netlify/
+
+# Divers
+bonjour.txt
+
+# Fichiers dupliqués à la racine (déjà dans images/)
+bar-nuit.jpeg
+bus-arriere-jour.jpeg
+bus-devant-jour.jpeg
+bus-entier-jour.jpeg
+chambre-nuit.jpeg
+coin-frigo.jpeg
+cuisine-nuit.jpeg
+cuisine-profil-jour.jpeg
+cuisine-profil-nuit.jpeg
+face-bus-jour.mov.zip
+face-bus.jpeg
+interieur-nuit.jpeg
+jacuzzi-chambre-nuit.jpeg
+pack-romantique.jpeg
+plaque-cuisine.jpeg
+profil-bus-jour.mov.zip
+profil-bus-plante.jpeg
+salon-jour.jpeg
+script.js
+style.css

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Réserver votre nuit insolite | Le Bus Insolite</title>
+  <meta name="description" content="Réservez votre nuit dans le Bus Insolite en Côte-d'Or. Jacuzzi privatif, arrivée autonome, paiement sécurisé. À partir de 150€ la nuit." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Réserver votre nuit insolite | Le Bus Insolite" />
+  <meta property="og:description" content="Réservez votre nuit dans le Bus Insolite en Côte-d'Or. Jacuzzi privatif, à partir de 150€." />
+  <meta property="og:image" content="images/bus-entier-jour.jpeg" />
+  <meta property="og:url" content="https://lebusinsolite.fr/reserver.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Réserver | Le Bus Insolite" />
+  <meta name="twitter:description" content="Réservez votre nuit insolite avec jacuzzi près de Dijon." />
+  <meta name="twitter:image" content="images/bus-entier-jour.jpeg" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-logo">
+      <a href="index.html">
+        <img src="images/logo.png" alt="Le Bus Insolite" height="60" />
+      </a>
+    </div>
+    <nav class="header-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="le-bus.html">Le Bus</a>
+      <a href="packs.html">Packs &amp; Options</a>
+      <a href="autour.html">Autour du Bus</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a href="reserver.html" class="btn active">Réserver</a>
+    </div>
+    <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="mobile-nav" aria-label="Navigation mobile">
+    <a href="index.html">Accueil</a>
+    <a href="le-bus.html">Le Bus</a>
+    <a href="packs.html">Packs &amp; Options</a>
+    <a href="autour.html">Autour du Bus</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="reserver.html" class="btn">Réserver</a>
+  </nav>
+
+  <main>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+      <h1>Réservez votre nuit insolite</h1>
+      <p>La réservation se fait en quelques clics via notre système sécurisé. Disponibilités en temps réel, paiement sécurisé, confirmation immédiate.</p>
+    </section>
+
+    <!-- ===== WIDGET DE RÉSERVATION ===== -->
+    <section class="booking-widget fade-in">
+
+      <!-- ÉTAPE 1 : Dates -->
+      <div class="bw-block">
+        <h2 class="bw-title">1. Choisissez vos dates</h2>
+
+        <div class="date-range-bar">
+          <div class="date-box">
+            <span class="date-label">Arrivée</span>
+            <span class="date-value" id="checkin-display">Sélectionner</span>
+          </div>
+          <span class="date-arrow">→</span>
+          <div class="date-box">
+            <span class="date-label">Départ</span>
+            <span class="date-value" id="checkout-display">Sélectionner</span>
+          </div>
+          <span class="nights-badge" id="nights-display"></span>
+        </div>
+
+        <div class="cal-nav">
+          <button id="cal-prev" class="cal-nav-btn" aria-label="Mois précédent">←</button>
+          <button id="cal-next" class="cal-nav-btn" aria-label="Mois suivant">→</button>
+        </div>
+
+        <div id="calendar" class="calendar-wrap"></div>
+
+        <div id="availability-msg" class="avail-msg"></div>
+
+        <div class="cal-legend">
+          <span class="legend-item"><span class="leg-dot leg-available"></span>Disponible</span>
+          <span class="legend-item"><span class="leg-dot leg-blocked"></span>Indisponible</span>
+          <span class="legend-item"><span class="leg-dot leg-selected"></span>Sélectionné</span>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 2 & 3 : Options + Contact (masqué jusqu'à sélection des dates) -->
+      <form id="booking-form" style="display:contents;">
+      <div id="booking-options" style="display:none;">
+
+        <!-- Voyageurs -->
+        <div class="bw-block">
+          <h2 class="bw-title">2. Personnalisez votre séjour</h2>
+
+          <div class="guests-row">
+            <span class="opt-label">Nombre de voyageurs</span>
+            <div class="guests-stepper">
+              <button type="button" id="guests-minus" class="stepper-btn">−</button>
+              <span id="guests-count">2</span>
+              <button type="button" id="guests-plus"  class="stepper-btn">+</button>
+              <span class="stepper-max">(max 4)</span>
+            </div>
+          </div>
+
+          <div class="opts-grid">
+            <label class="opt-card">
+              <input type="checkbox" id="opt-romantique" class="opt-input" />
+              <span class="opt-icon">💕</span>
+              <span class="opt-name">Pack Romantique</span>
+              <span class="opt-price">+79 €</span>
+              <span class="opt-desc">Déco romantique, pétales, bougie, champagne</span>
+            </label>
+
+            <label class="opt-card">
+              <input type="checkbox" id="opt-famille" class="opt-input" />
+              <span class="opt-icon">👨‍👩‍👧</span>
+              <span class="opt-name">Pack Famille</span>
+              <span class="opt-price">+49 €</span>
+              <span class="opt-desc">Jeux de société, équipement enfant</span>
+            </label>
+
+            <label class="opt-card">
+              <input type="checkbox" id="opt-petitdej" class="opt-input" />
+              <span class="opt-icon">🥐</span>
+              <span class="opt-name">Petit-déjeuner</span>
+              <span class="opt-price">+29/39/45 €</span>
+              <span class="opt-desc">Livré le matin selon le nombre de personnes</span>
+            </label>
+
+            <label class="opt-card">
+              <input type="checkbox" id="opt-latecheckout" class="opt-input" />
+              <span class="opt-icon">⏰</span>
+              <span class="opt-name">Late checkout 13h</span>
+              <span class="opt-price">+20 €</span>
+              <span class="opt-desc">Profitez du bus jusqu'à 13h (au lieu de 11h)</span>
+            </label>
+
+            <label class="opt-card">
+              <input type="checkbox" id="opt-animal" class="opt-input" />
+              <span class="opt-icon">🐾</span>
+              <span class="opt-name">Animal de compagnie</span>
+              <span class="opt-price">Gratuit</span>
+              <span class="opt-desc">Votre animal est le bienvenu</span>
+            </label>
+          </div>
+
+          <!-- Vélos (radios) -->
+          <div class="velos-row">
+            <span class="opt-label">Location de vélos</span>
+            <div class="velos-options">
+              <label class="velo-option">
+                <input type="radio" name="velos" value="0" class="opt-input" checked /> Aucun
+              </label>
+              <label class="velo-option">
+                <input type="radio" name="velos" value="2" class="opt-input" /> 2 vélos (+30 €)
+              </label>
+              <label class="velo-option">
+                <input type="radio" name="velos" value="4" class="opt-input" /> 4 vélos (+50 €)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="bw-block">
+          <h2 class="bw-title">3. Vos coordonnées</h2>
+          <div class="contact-fields">
+            <div class="field-group">
+              <label for="guest-name">Prénom et nom *</label>
+              <input type="text" id="guest-name" name="guestName" required placeholder="Marie Dupont" />
+            </div>
+            <div class="field-group">
+              <label for="guest-email">Email *</label>
+              <input type="email" id="guest-email" name="guestEmail" required placeholder="marie@example.com" />
+            </div>
+            <div class="field-group">
+              <label for="guest-phone">Téléphone</label>
+              <input type="tel" id="guest-phone" name="guestPhone" placeholder="06 12 34 56 78" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Récapitulatif + Paiement -->
+        <div class="bw-block booking-summary">
+          <h2 class="bw-title">Récapitulatif</h2>
+          <div id="price-breakdown" class="price-breakdown"></div>
+          <p class="cancel-policy">✅ Annulation gratuite jusqu'à 7 jours avant l'arrivée</p>
+          <button type="submit" id="pay-btn" class="btn btn-lg btn-pay">
+            Payer … €  →
+          </button>
+          <p class="secure-note">🔒 Paiement sécurisé par Stripe · Redirection vers la page de paiement</p>
+        </div>
+
+      </div>
+      </form>
+
+    </section>
+
+    <!-- ===== COMMENT ÇA MARCHE ===== -->
+    <section class="section" style="max-width:800px;">
+      <span class="section-tag fade-in text-center" style="display:block;text-align:center;">Comment ça marche ?</span>
+      <h2 class="section-title fade-in">3 étapes simples</h2>
+      <div class="steps-list">
+        <div class="step-item fade-in fade-in-delay-1">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-icon">📅</div>
+            <h3>Choisissez vos dates</h3>
+            <p>Consultez le calendrier de disponibilités en temps réel et sélectionnez vos dates.</p>
+          </div>
+        </div>
+        <div class="step-item fade-in fade-in-delay-2">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-icon">🎁</div>
+            <h3>Ajoutez vos options</h3>
+            <p>Personnalisez votre séjour : petit-déjeuner, vélos, Pack Romantique, Pack Famille, départ tardif…</p>
+          </div>
+        </div>
+        <div class="step-item fade-in fade-in-delay-3">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-icon">💳</div>
+            <h3>Paiement sécurisé</h3>
+            <p>Payez en ligne via Stripe. Confirmation immédiate par email avec toutes les instructions d'arrivée.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT PRÉ-RÉSERVATION ===== -->
+    <section class="section" style="max-width:700px;padding-top:0;">
+      <div class="contact-call-box fade-in">
+        <p>Une question avant de réserver ?</p>
+        <a href="tel:0669027987" class="phone-link">📞 06 69 02 79 87</a>
+        <p style="font-size:0.85rem;color:#aaa;margin-top:0.5rem;">Disponible 7j/7 · Réponse sous 24h</p>
+      </div>
+    </section>
+
+    <!-- ===== TARIFS RÉCAP ===== -->
+    <section class="section bg-light" style="max-width:100%;padding:4rem 2rem;">
+      <div style="max-width:900px;margin:0 auto;">
+        <h2 class="section-title fade-in">Récapitulatif des tarifs</h2>
+        <div class="pricing-grid">
+          <div class="price-card fade-in fade-in-delay-1">
+            <div class="price-icon">🌙</div>
+            <h3>Une nuit</h3>
+            <div class="price-amount">150€</div>
+            <p class="price-detail">jusqu'à 4 personnes</p>
+          </div>
+          <div class="price-card featured fade-in fade-in-delay-2">
+            <div class="price-icon">🚲</div>
+            <h3>Deux nuits</h3>
+            <div class="price-amount">280€</div>
+            <p class="price-detail">vélos inclus</p>
+            <span class="price-badge">Meilleure offre</span>
+          </div>
+          <div class="price-card fade-in fade-in-delay-3">
+            <div class="price-icon">💕</div>
+            <h3>Pack Romantique</h3>
+            <div class="price-amount">+79€</div>
+            <p class="price-detail">option à ajouter</p>
+          </div>
+          <div class="price-card fade-in fade-in-delay-4">
+            <div class="price-icon">🥐</div>
+            <h3>Petit-déjeuner</h3>
+            <div class="price-amount">+29€</div>
+            <p class="price-detail">pour 2 personnes</p>
+          </div>
+        </div>
+        <p class="text-center" style="color:#888;font-size:0.9rem;margin-top:1rem;">
+          Voir <a href="packs.html" style="color:var(--color-accent);font-weight:600;">tous les packs et options →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== RÉASSURANCE ===== -->
+    <div class="reassurance">
+      <div class="reassurance-items">
+        <span>✅ Paiement sécurisé</span>
+        <span>✅ Confirmation immédiate</span>
+        <span>✅ Accueil 7j/7</span>
+        
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <a href="index.html">
+              <img src="images/logo.png" alt="Le Bus Insolite" height="50" style="filter: brightness(0) invert(1);" />
+            </a>
+          </div>
+          <p>Nuit insolite avec jacuzzi à 30 min de Dijon</p>
+          <p>Saint-Usage, Côte-d'Or, Bourgogne</p>
+        </div>
+        <div class="footer-col">
+          <h3>Liens rapides</h3>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="le-bus.html">Le Bus</a></li>
+            <li><a href="packs.html">Packs &amp; Options</a></li>
+            <li><a href="reserver.html">Réserver</a></li>
+            <li><a href="autour.html">Autour du Bus</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <div class="footer-contact-link"><span>📞</span><a href="tel:0669027987">06 69 02 79 87</a></div>
+          <div class="footer-contact-link"><span>📧</span><a href="mailto:contact@lebusinsolite.fr">contact@lebusinsolite.fr</a></div>
+          <div class="footer-contact-link"><span>📍</span><span>Saint-Usage (21170), Côte-d'Or</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Le Bus Insolite. Tous droits réservés.</span>
+      <span>
+        <a href="#">Mentions légales</a> ·
+        <a href="#">Politique de confidentialité</a> ·
+        <a href="#">Politique de cookies</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>
