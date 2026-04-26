@@ -59,15 +59,22 @@ async function run() {
     syncCalendar(process.env.BOOKING_ICAL_URL, 'booking'),
   ]);
   console.log(`Sync OK — Airbnb: ${airbnbCount} dates, Booking: ${bookingCount} dates`);
-  return { statusCode: 200, body: JSON.stringify({ airbnb: airbnbCount, booking: bookingCount }) };
+  return {
+    statusCode: 200,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ airbnb: airbnbCount, booking: bookingCount }),
+  };
 }
 
-// Déclenchement planifié toutes les 30 min
-module.exports.handler = schedule('*/30 * * * *', async () => {
+// Déclenchement HTTP manuel (GET)
+async function httpHandler() {
   try {
     return await run();
   } catch (err) {
     console.error('Sync error:', err.message);
-    return { statusCode: 500, body: err.message };
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
-});
+}
+
+// Déclenchement planifié toutes les 30 min
+module.exports.handler = schedule('*/30 * * * *', httpHandler);
