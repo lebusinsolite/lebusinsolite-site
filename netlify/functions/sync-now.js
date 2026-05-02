@@ -1,37 +1,78 @@
-const ical = require('node-ical');
 const { createClient } = require('@supabase/supabase-js');
 
 function getSupabase() {
   return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
 
-function toDateString(d) {
-  return new Date(d).toISOString().split('T')[0];
+// Parseur iCal minimal, compatible VALUE=DATE (format Airbnb & Booking)
+function parseIcal(text) {
+  const events = [];
+  const normalized = text.replace(/\r\n?/g, '\n');
+  const lines = normalized.split('\n');
+  let current = null;
+
+  for (const line of lines) {
+    if (line === 'BEGIN:VEVENT') {
+      current = {};
+    } else if (line === 'END:VEVENT' && current) {
+      if (current.dtstart && current.dtend) events.push(current);
+      current = null;
+    } else if (current) {
+      if (line.startsWith('DTSTART')) {
+        const val = line.split(':').slice(1).join(':').trim();
+        // VALUE=DATE : YYYYMMDD
+        if (/^\d{8}$/.test(val)) {
+          current.dtstart = `${val.slice(0,4)}-${val.slice(4,6)}-${val.slice(6,8)}`;
+        } else {
+          // DATETIME : YYYYMMDDTHHMMSSZ → garde juste la date
+          current.dtstart = val.slice(0, 10).replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        }
+      } else if (line.startsWith('DTEND')) {
+        const val = line.split(':').slice(1).join(':').trim();
+        if (/^\d{8}$/.test(val)) {
+          current.dtend = `${val.slice(0,4)}-${val.slice(4,6)}-${val.slice(6,8)}`;
+        } else {
+          current.dtend = val.slice(0, 10).replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        }
+      } else if (line.startsWith('SUMMARY:')) {
+        current.summary = line.slice(8).trim();
+      }
+    }
+  }
+  return events;
 }
 
 function expandDates(start, end) {
   const dates = [];
-  const current = new Date(start);
-  const last = new Date(end);
-  while (current < last) {
-    dates.push(toDateString(current));
-    current.setUTCDate(current.getUTCDate() + 1);
+  const cur = new Date(start + 'T00:00:00Z');
+  const last = new Date(end + 'T00:00:00Z');
+  while (cur < last) {
+    dates.push(cur.toISOString().split('T')[0]);
+    cur.setUTCDate(cur.getUTCDate() + 1);
   }
   return dates;
 }
 
 async function syncCalendar(url, source) {
-  const events = await ical.async.fromURL(url);
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Fetch ${source} échoué : ${res.status}`);
+  const text = await res.text();
+  const events = parseIcal(text);
+
   const rows = [];
-  for (const event of Object.values(events)) {
-    if (event.type !== 'VEVENT' || !event.dtstart || !event.dtend) continue;
-    for (const date of expandDates(event.dtstart, event.dtend)) {
-      rows.push({ date, source, label: event.summary || null, synced_at: new Date().toISOString() });
+  for (const ev of events) {
+    for (const date of expandDates(ev.dtstart, ev.dtend)) {
+      rows.push({ date, source, label: ev.summary || null, synced_at: new Date().toISOString() });
     }
   }
+
   if (rows.length === 0) return 0;
-  const { error } = await getSupabase().from('blocked_dates').upsert(rows, { onConflict: 'date,source' });
-  if (error) throw new Error(`${source}: ${error.message}`);
+
+  const { error } = await getSupabase()
+    .from('blocked_dates')
+    .upsert(rows, { onConflict: 'date,source' });
+
+  if (error) throw new Error(`Supabase ${source} : ${error.message}`);
   return rows.length;
 }
 
