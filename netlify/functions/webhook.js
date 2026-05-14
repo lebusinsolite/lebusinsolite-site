@@ -88,6 +88,13 @@ async function sendGuestEmail(resend, session, meta, options) {
             Aucun remboursement en dessous de 7 jours.</p>
           </div>
 
+          <div style="background:#4A5D3A;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;text-align:center;">
+            <h3 style="margin:0 0 .5rem;color:#fff;">📖 Guide d'arrivée</h3>
+            <p style="color:rgba(255,255,255,.85);margin:0 0 1rem;font-size:.9rem;">Scannez le QR code ou cliquez le lien pour accéder aux instructions complètes (chauffage, jacuzzi, accès…)</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=10&format=png&data=https%3A%2F%2Flebusinsolite.fr%2Fguide-arrivee.html" alt="QR Code Guide d'arrivée" width="180" height="180" style="border-radius:8px;background:#fff;padding:8px;display:block;margin:0 auto 1rem;" />
+            <a href="https://lebusinsolite.fr/guide-arrivee.html" style="display:inline-block;background:#FF3E7F;color:#fff;padding:.65rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.95rem;">Accéder au guide →</a>
+          </div>
+
           <p>Une question ? Répondez à cet email ou appelez-nous au <strong>06 69 02 79 87</strong>.</p>
           <p style="color:#888;font-size:.85rem;">À très bientôt au Bus Insolite !</p>
         </div>

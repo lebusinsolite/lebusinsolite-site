@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guide d'arrivée | Le Bus Insolite</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:   #4A5D3A;
+      --cream:   #F5EFE6;
+      --warm:    #FFFBF0;
+      --text:    #3A2E26;
+      --muted:   rgba(58,46,38,0.55);
+      --border:  rgba(74,93,58,0.18);
+      --accent:  #FF3E7F;
+      --radius:  10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    /* HEADER */
+    .guide-header {
+      background: var(--green);
+      color: #fff;
+      text-align: center;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+    .guide-header h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: .4rem;
+    }
+    .guide-header p { font-size: .95rem; opacity: .85; }
+
+    /* WELCOME */
+    .welcome {
+      background: var(--warm);
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      font-size: 1.05rem;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    /* CONTENT */
+    .guide-content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* SECTION */
+    .guide-section {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .guide-section-header {
+      background: var(--green);
+      color: #fff;
+      padding: .9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+    }
+    .guide-section-body { padding: 1.25rem 1.25rem; }
+
+    /* BLOCKS */
+    .info-block {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid var(--green);
+    }
+    .info-block:last-child { margin-bottom: 0; }
+    .info-block strong { display: block; margin-bottom: .3rem; color: var(--green); }
+
+    .warning-block {
+      background: rgba(255,62,127,.07);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: .85rem 1.1rem;
+      margin-bottom: 1rem;
+      font-size: .92rem;
+    }
+    .warning-block:last-child { margin-bottom: 0; }
+
+    /* STEPS */
+    .steps { list-style: none; counter-reset: step; }
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: .75rem;
+      margin-bottom: .6rem;
+      align-items: flex-start;
+      font-size: .95rem;
+    }
+    .steps li::before {
+      content: counter(step);
+      background: var(--green);
+      color: #fff;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    /* BULLETS */
+    .bullets { list-style: none; }
+    .bullets li {
+      padding: .3rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+      font-size: .95rem;
+    }
+    .bullets li::before {
+      content: '›';
+      position: absolute; left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* PHOTO */
+    .guide-photo {
+      width: 100%;
+      border-radius: 8px;
+      margin: 1rem 0;
+      object-fit: cover;
+      max-height: 300px;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .2rem .6rem;
+      border-radius: 20px;
+      margin-bottom: .5rem;
+    }
+
+    /* CONTACT */
+    .contact-box {
+      background: var(--green);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .contact-box h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; margin-bottom: .5rem; color: #fff; }
+    .contact-box a {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* DIVIDER */
+    hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+    p { margin-bottom: .75rem; }
+    p:last-child { margin-bottom: 0; }
+
+    @media (max-width: 480px) {
+      .guide-header h1 { font-size: 1.6rem; }
+      .guide-section-body { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="guide-header">
+    <h1>🚌 Guide d'arrivée</h1>
+    <p>Le Bus Insolite · Saint-Usage, Côte-d'Or</p>
+  </div>
+
+  <div class="welcome">
+    Bienvenue au Bus Insolite.<br>
+    Merci de prendre connaissance des informations ci-dessous pour une arrivée simple et un séjour agréable.
+  </div>
+
+  <div class="guide-content">
+
+    <!-- ARRIVÉE -->
+    <div class="guide-section">
+      <div class="guide-section-header">📍 Arrivée &amp; accès</div>
+      <div class="guide-section-body">
+        <div class="info-block">
+          <strong>⏰ Heure d'arrivée : à partir de 16h</strong>
+          Merci de respecter cet horaire pour permettre la préparation du lieu.
+        </div>
+        <div class="info-block">
+          <strong>🗺️ Adresse &amp; accès</strong>
+          L'adresse exacte et les indications d'accès vous sont envoyées avant votre arrivée.
+        </div>
+        <div class="info-block">
+          <strong>🅿️ Stationnement</strong>
+          Stationnement possible devant la clôture à proximité du bus.
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCÈS -->
+    <div class="guide-section">
+      <div class="guide-section-header">🔑 Accès au logement</div>
+      <div class="guide-section-body">
+        <div class="info-block">
+          <strong>Boîte à clé</strong>
+          Accès flexible via boîte à clé. Le code vous sera communiqué avant votre arrivée.<br>
+          <strong style="color:var(--accent);">⚠️ Merci de bien refermer et remettre la clé dans la boîte après votre entrée.</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- RÈGLES -->
+    <div class="guide-section">
+      <div class="guide-section-header">⚠️ Règles importantes</div>
+      <div class="guide-section-body">
+        <div class="warning-block">❌ Interdiction de fumer à l'intérieur</div>
+        <div class="warning-block">🚬 Merci de ne pas jeter de mégots sur le terrain</div>
+        <div class="warning-block">🙏 Merci de respecter les lieux et le matériel</div>
+      </div>
+    </div>
+
+    <!-- CHAUFFAGES PÉTROLE -->
+    <div class="guide-section">
+      <div class="guide-section-header">🔥 Chauffages à pétrole (×3)</div>
+      <div class="guide-section-body">
+        <p>Le bus est équipé de trois chauffages à pétrole pour votre confort.</p>
+
+        <div class="badge">Allumage</div>
+        <ol class="steps">
+          <li>Allumer via le bouton <strong>Power</strong> en maintenant appuyé quelques secondes</li>
+          <li>Ne pas toucher les autres réglages</li>
+        </ol>
+
+        <hr>
+
+        <div class="badge">Recharge en pétrole</div>
+        <ol class="steps">
+          <li>Le bidon de pétrole se trouve <strong>à l'extérieur devant le bus</strong></li>
+          <li>Dévisser le réservoir du chauffage</li>
+          <li>Utiliser la <strong>pompe rouge</strong> : embout rigide dans le bidon, embout flexible dans le réservoir</li>
+          <li>Presser la pompe par intermittence pour remplir</li>
+          <li>Replacer le réservoir dans le chauffage</li>
+        </ol>
+        <p style="font-size:.85rem;color:var(--muted);margin-top:.5rem;">Vérifier le niveau via la fenêtre du réservoir.</p>
+
+        <hr>
+
+        <div class="badge">Extinction</div>
+        <p>Appuyer sur <strong>Power</strong> pendant quelques secondes.</p>
+
+        <hr>
+
+        <div class="warning-block">⚠️ Toujours utiliser dans un espace aéré</div>
+        <div class="warning-block">⚠️ Ne pas déplacer le chauffage lorsqu'il est en marche</div>
+      </div>
+    </div>
+
+    <!-- POÊLE À PELLETS -->
+    <div class="guide-section">
+      <div class="guide-section-header">🔥 Poêle à pellets</div>
+      <div class="guide-section-body">
+        <div class="badge">Allumage</div>
+        <ol class="steps">
+          <li>Vérifier le niveau de pellets</li>
+          <li>Appuyer sur le bouton de démarrage</li>
+          <li>Attendre le lancement automatique (quelques minutes)</li>
+        </ol>
+
+        <hr>
+
+        <div class="badge">Utilisation</div>
+        <ul class="bullets">
+          <li>Laisser le poêle fonctionner sans interruption une fois lancé</li>
+          <li>Recharger en pellets en ouvrant la trappe <strong>poêle éteint uniquement</strong></li>
+        </ul>
+
+        <hr>
+
+        <div class="warning-block">❌ Ne pas ouvrir pendant le fonctionnement</div>
+        <div class="warning-block">❌ Ne pas ajouter d'autres combustibles</div>
+      </div>
+    </div>
+
+    <!-- DOUCHE & JACUZZI -->
+    <div class="guide-section">
+      <div class="guide-section-header">🛁 Douche &amp; Jacuzzi</div>
+      <div class="guide-section-body">
+
+        <div class="badge">🚿 Mode douche</div>
+        <ul class="bullets">
+          <li>Robinet <strong>gauche</strong> → règle la température</li>
+          <li>Robinet <strong>milieu</strong> → règle le débit d'eau</li>
+          <li>Robinet <strong>droite</strong> → choisir 🚿 pommeau de douche ou ⛲ fontaine</li>
+          <li>Bouton rond central → vider l'eau (évacuation)</li>
+        </ul>
+        <div class="info-block" style="margin-top:1rem;">
+          <strong>👉 Utilisation simple</strong>
+          <ol class="steps" style="margin-top:.5rem;">
+            <li>Choisir la sortie d'eau (robinet droit)</li>
+            <li>Ajuster la température (robinet gauche)</li>
+            <li>Régler le débit (robinet milieu)</li>
+          </ol>
+        </div>
+
+        <hr>
+
+        <div class="badge">🛁 Mode jacuzzi (balnéo)</div>
+        <div class="warning-block">⚠️ Toujours remplir la baignoire avant d'allumer</div>
+        <ol class="steps">
+          <li>Appuyer sur le bouton <strong>POWER ⏻</strong> pour allumer</li>
+          <li>Utiliser les flèches <strong>◀ ▶</strong> pour faire défiler les modes (bulles, jets, effets…)</li>
+          <li>Appuyer sur <strong>OK</strong> pour activer le mode</li>
+          <li>Appuyer de nouveau sur <strong>OK</strong> pour arrêter</li>
+        </ol>
+
+        <hr>
+
+        <div class="badge">🔒 Mode LOCK</div>
+        <div class="info-block">
+          Si "LOCK" apparaît à l'écran :<br>
+          👉 Maintenir le bouton <strong>POWER</strong> appuyé quelques secondes pour déverrouiller.
+        </div>
+
+        <hr>
+
+        <div class="warning-block">❌ Ne jamais allumer sans eau dans la baignoire</div>
+        <div class="warning-block">❌ Ne pas utiliser de mousse excessive (risque de panne)</div>
+        <div class="info-block">
+          <strong>⏱️ Utilisation conseillée : 20–30 minutes</strong>
+          Penser à vider la baignoire après utilisation.
+        </div>
+      </div>
+    </div>
+
+    <!-- GAZ -->
+    <div class="guide-section">
+      <div class="guide-section-header">🔥 Gaz (cuisine)</div>
+      <div class="guide-section-body">
+        <div class="badge">Allumage</div>
+        <ol class="steps">
+          <li>Ouvrir la vanne de gaz</li>
+          <li>Maintenir le bouton de la plaque appuyé en le tournant</li>
+          <li>Allumer au briquet au niveau de la plaque</li>
+        </ol>
+
+        <hr>
+
+        <div class="warning-block">⚠️ Fermer la vanne après chaque utilisation</div>
+        <div class="warning-block">⚠️ Vérifier qu'aucune odeur de gaz ne persiste</div>
+      </div>
+    </div>
+
+    <!-- DÉPART -->
+    <div class="guide-section">
+      <div class="guide-section-header">🧹 Départ</div>
+      <div class="guide-section-body">
+        <div class="info-block">
+          <strong>⏰ Heure de départ : 11h</strong>
+          (ou 13h avec l'option late checkout)
+        </div>
+        <ul class="bullets">
+          <li>Laisser les lieux propres</li>
+          <li>Sortir vos déchets</li>
+          <li>Éteindre tous les équipements</li>
+          <li>Remettre la clé dans la boîte à clé</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-box">
+      <h3>📞 Une question ?</h3>
+      <p style="color:rgba(255,255,255,.85);margin-bottom:.75rem;">Je suis disponible 7j/7</p>
+      <a href="tel:0669027987">06 69 02 79 87</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
