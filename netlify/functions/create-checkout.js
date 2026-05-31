@@ -1,6 +1,11 @@
 const Stripe = require('stripe');
 const { createClient } = require('@supabase/supabase-js');
 
+// Dates libérées manuellement (même liste que blocked-dates.js)
+const MANUAL_UNBLOCK = [
+  '2026-06-27',
+];
+
 const PRICE = {
   night(n) {
     if (n === 1) return 150;
@@ -107,7 +112,8 @@ module.exports.handler = async (event) => {
   const dates = expandDates(checkin, checkout);
 
   const { data: blocked } = await supabase.from('blocked_dates').select('date').in('date', dates);
-  if (blocked && blocked.length > 0) {
+  const actuallyBlocked = (blocked || []).filter(r => !MANUAL_UNBLOCK.includes(r.date));
+  if (actuallyBlocked.length > 0) {
     return { statusCode: 409, headers, body: JSON.stringify({ error: 'Ces dates ne sont plus disponibles. Veuillez en choisir d\'autres.' }) };
   }
 
