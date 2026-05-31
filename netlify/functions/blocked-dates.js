@@ -1,5 +1,11 @@
 const { createClient } = require('@supabase/supabase-js');
 
+// Liste de dates à forcer comme disponibles même si remontées à tort
+// comme bloquées par les iCal Airbnb/Booking (format YYYY-MM-DD).
+const MANUAL_UNBLOCK = [
+  '2026-06-27',
+];
+
 module.exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -24,9 +30,11 @@ module.exports.handler = async (event) => {
 
   if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
 
+  const dates = data.map(r => r.date).filter(d => !MANUAL_UNBLOCK.includes(d));
+
   return {
     statusCode: 200,
     headers,
-    body: JSON.stringify({ dates: data.map(r => r.date) }),
+    body: JSON.stringify({ dates }),
   };
 };
