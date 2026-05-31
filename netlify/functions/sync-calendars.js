@@ -59,12 +59,15 @@ async function syncCalendar(url, source) {
     }
   }
 
+  const supabase = getSupabase();
+
+  // Supprime toutes les dates de cette source, puis réinsère — les annulations sont ainsi reflétées
+  const { error: delError } = await supabase.from('blocked_dates').delete().eq('source', source);
+  if (delError) throw new Error(`Supabase delete ${source} : ${delError.message}`);
+
   if (rows.length === 0) return 0;
 
-  const { error } = await getSupabase()
-    .from('blocked_dates')
-    .upsert(rows, { onConflict: 'date,source' });
-
+  const { error } = await supabase.from('blocked_dates').insert(rows);
   if (error) throw new Error(`Supabase ${source} : ${error.message}`);
   return rows.length;
 }
