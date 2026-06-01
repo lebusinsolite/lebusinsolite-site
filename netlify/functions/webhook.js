@@ -95,7 +95,7 @@ async function sendGuestEmail(resend, session, meta, options) {
             <a href="https://lebusinsolite.fr/guide-arrivee.html" style="display:inline-block;background:#FF3E7F;color:#fff;padding:.65rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.95rem;">Accéder au guide →</a>
           </div>
 
-          <p>Une question ? Répondez à cet email ou appelez-nous au <strong>06 69 02 79 87</strong>.</p>
+          <p>Une question ? Répondez à cet email ou appelez-nous au <strong>07 50 36 05 75</strong>.</p>
           <p style="color:#888;font-size:.85rem;">À très bientôt au Bus Insolite !</p>
         </div>
       </div>
