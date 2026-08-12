@@ -14,8 +14,8 @@ const PRICE = {
   },
   packRomantique: 79,
   packFamille: 49,
-  velos2: 30,
-  velos4: 50,
+  velos2: 15,
+  velos4: 20,
   petitDej: { 1: 29, 2: 29, 3: 39, 4: 45 },
   lateCheckout: 20,
 };
@@ -51,14 +51,7 @@ function buildLineItems(nights, guests, options) {
     quantity: 1,
   });
 
-  if (options.packRomantique) items.push({
-    price_data: { currency: 'eur', unit_amount: PRICE.packRomantique * 100,
-      product_data: { name: 'Pack Romantique' } }, quantity: 1,
-  });
-  if (options.packFamille) items.push({
-    price_data: { currency: 'eur', unit_amount: PRICE.packFamille * 100,
-      product_data: { name: 'Pack Famille' } }, quantity: 1,
-  });
+  // Pack Romantique et Pack Famille temporairement indisponibles
   if (options.velos === 2) items.push({
     price_data: { currency: 'eur', unit_amount: PRICE.velos2 * 100,
       product_data: { name: '2 vélos' } }, quantity: 1,
@@ -67,13 +60,7 @@ function buildLineItems(nights, guests, options) {
     price_data: { currency: 'eur', unit_amount: PRICE.velos4 * 100,
       product_data: { name: '4 vélos' } }, quantity: 1,
   });
-  if (options.petitDejeuner) {
-    const price = PRICE.petitDej[guests] || PRICE.petitDej[4];
-    items.push({
-      price_data: { currency: 'eur', unit_amount: price * 100,
-        product_data: { name: `Petit-déjeuner (${guests} pers.)` } }, quantity: 1,
-    });
-  }
+  // Petit-déjeuner temporairement indisponible
   if (options.lateCheckout) items.push({
     price_data: { currency: 'eur', unit_amount: PRICE.lateCheckout * 100,
       product_data: { name: 'Late checkout (13h)' } }, quantity: 1,

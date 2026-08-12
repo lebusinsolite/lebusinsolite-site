@@ -9,8 +9,8 @@ const PRICE = {
   },
   packRomantique: 79,
   packFamille: 49,
-  velos2: 30,
-  velos4: 50,
+  velos2: 15,
+  velos4: 20,
   petitDej: { 1: 29, 2: 29, 3: 39, 4: 45 },
   lateCheckout: 20,
 };
